@@ -119,6 +119,26 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
     insertCharacter();
   };
 
+  const handleAutoCursor = () => {
+    let sel = 0;
+    const select = () => {
+      Transforms.select(editor, {
+        anchor: {
+          path: [0, 0],
+          offset: sel,
+        },
+        focus: {
+          path: [0, 0],
+          offset: sel,
+        },
+      });
+      sel = sel === 0 ? 1 : 0;
+      setTimeout(select, 100);
+    };
+
+    select();
+  };
+
   return (
     <Instance online={isOnline}>
       <Title>
@@ -132,6 +152,9 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
           </Button>
           <Button type="button" onClick={handleAutoInsert}>
             Auto Insert
+          </Button>
+          <Button type="button" onClick={handleAutoCursor}>
+            Auto Cursor
           </Button>
         </div>
       </Title>
