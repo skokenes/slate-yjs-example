@@ -29,7 +29,7 @@ const EditorFrame: React.FC<EditorFrame> = ({
   decorate,
 }) => {
   const renderLeaf = useCallback((props: any) => <Leaf {...props} />, [
-    decorate,
+    // decorate,
   ]);
 
   return (

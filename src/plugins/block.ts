@@ -7,13 +7,13 @@ export const toggleBlock = (editor: Editor, format: string): void => {
   const isList = LIST_TYPES.includes(format);
 
   Transforms.unwrapNodes(editor, {
-    match: (n) => LIST_TYPES.includes(n.type as any),
+    match: (n: any) => LIST_TYPES.includes(n.type as any),
     split: true,
   });
 
   Transforms.setNodes(editor, {
     type: isActive ? "paragraph" : isList ? "list-item" : format,
-  });
+  } as any);
 
   if (!isActive && isList) {
     const block = { type: format, children: [] };
@@ -23,7 +23,7 @@ export const toggleBlock = (editor: Editor, format: string): void => {
 
 export const isBlockActive = (editor: Editor, format: string): boolean => {
   const [match] = Editor.nodes(editor, {
-    match: (n) => n.type === format,
+    match: (n: any) => n.type === format,
   });
 
   return !!match;

@@ -10,7 +10,7 @@ export const withLinks = <T extends Editor>(editor: T): T & LinkEditor => {
 
   const { insertData, insertText, isInline } = e;
 
-  e.isInline = (element: Element) => {
+  e.isInline = (element: any) => {
     return element.type === "link" ? true : isInline(element);
   };
 
@@ -42,12 +42,12 @@ export const insertLink = (editor: Editor, href: string): void => {
 };
 
 export const isLinkActive = (editor: Editor): boolean => {
-  const [link] = Editor.nodes(editor, { match: (n) => n.type === "link" });
+  const [link] = Editor.nodes(editor, { match: (n: any) => n.type === "link" });
   return !!link;
 };
 
 export const unwrapLink = (editor: Editor): void => {
-  Transforms.unwrapNodes(editor, { match: (n) => n.type === "link" });
+  Transforms.unwrapNodes(editor, { match: (n: any) => n.type === "link" });
 };
 
 export const wrapLink = (editor: Editor, href: string): void => {

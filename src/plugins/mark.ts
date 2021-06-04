@@ -10,7 +10,7 @@ export const toggleMark = (editor: Editor, format: string): void => {
   }
 };
 
-export const isMarkActive = (editor: Editor, format: string): boolean => {
-  const marks = Editor.marks(editor);
-  return marks ? marks[format] === true : false;
+export const isMarkActive = (editor: Editor, format: string): any => {
+  const marks: any = Editor.marks(editor) as any;
+  return marks ? (marks as any)[format] === true : false;
 };

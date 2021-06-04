@@ -55,7 +55,10 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
 
   const editor = useMemo(() => {
     const editor = withCursor(
-      withYjs(withLinks(withReact(withHistory(createEditor()))), sharedType),
+      withYjs(
+        withLinks(withReact(withHistory(createEditor() as any))),
+        sharedType
+      ),
       provider.awareness
     );
 
@@ -79,7 +82,7 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
     provider.on("sync", (isSynced: boolean) => {
       if (isSynced && sharedType.length === 0) {
         toSharedType(sharedType, [
-          { type: "paragraph", children: [{ text: "Hello world!" }] },
+          { type: "paragraph", children: [{ text: "Hello world!" }] } as any,
         ]);
       }
     });
@@ -105,7 +108,7 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
           text: "",
         },
       ],
-    });
+    } as any);
 
     const selection = editor.selection;
 
