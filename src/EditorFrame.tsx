@@ -61,6 +61,9 @@ const EditorFrame: React.FC<EditorFrame> = ({
         </div>
 
         <Editable
+          style={{
+            overflowWrap: "anywhere",
+          }}
           renderElement={renderElement}
           renderLeaf={renderLeaf}
           decorate={decorate}

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React, { useEffect, useMemo, useState } from "react";
-import { createEditor, Node } from "slate";
+import { createEditor, Node, Transforms } from "slate";
 import { withHistory } from "slate-history";
 import { withReact } from "slate-react";
 import {
@@ -97,6 +97,28 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
     isOnline ? provider.disconnect() : provider.connect();
   };
 
+  const handleAutoInsert = () => {
+    Transforms.insertNodes(editor, {
+      type: "paragraph",
+      children: [
+        {
+          text: "",
+        },
+      ],
+    });
+
+    const selection = editor.selection;
+
+    const insertCharacter = () => {
+      const char = Math.random().toString(36).substring(2, 3);
+      Transforms.insertText(editor, char, { at: selection! });
+
+      setTimeout(insertCharacter, 100);
+    };
+
+    insertCharacter();
+  };
+
   return (
     <Instance online={isOnline}>
       <Title>
@@ -107,6 +129,9 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
           </Button>
           <Button type="button" onClick={() => removeUser(id)}>
             Remove
+          </Button>
+          <Button type="button" onClick={handleAutoInsert}>
+            Auto Insert
           </Button>
         </div>
       </Title>
